@@ -7,7 +7,7 @@
 <h3 align="center">Menos planillas, más negocios cerrados.</h3>
 
 <p align="center">
-  Caso de estudio de producto: una plataforma inmobiliaria que une la gestión del negocio con una vitrina pública propia.
+  Caso de estudio de producto, diseño e ingeniería: una plataforma inmobiliaria que une la gestión del negocio con una vitrina pública propia.
 </p>
 
 ![Portada pública de Pontia](assets/portada.webp)
@@ -45,9 +45,10 @@ Este documento cuenta cómo pensé el producto, qué decidí y por qué, cómo d
 6. [Marca](#6-marca)
 7. [Sistema de diseño](#7-sistema-de-diseño)
 8. [Auditoría de UI/UX y rediseño del panel](#8-auditoría-de-uiux-y-rediseño-del-panel)
-9. [Decisiones clave](#9-decisiones-clave)
-10. [Estado actual y lo que viene](#10-estado-actual-y-lo-que-viene)
-11. [Qué haría distinto](#11-qué-haría-distinto)
+9. [Visión técnica](#9-visión-técnica)
+10. [Decisiones clave](#10-decisiones-clave)
+11. [Estado actual y lo que viene](#11-estado-actual-y-lo-que-viene)
+12. [Qué haría distinto](#12-qué-haría-distinto)
 
 ---
 
@@ -223,7 +224,57 @@ Las pantallas con sesión las verifiqué con datos de ejemplo montados con las m
 
 ![Panel de una organización](assets/panel.webp)
 
-## 9. Decisiones clave
+## 9. Visión técnica
+
+Diseñé y construí todo el sistema, así que las decisiones técnicas siguen las reglas del producto y no al revés. Esta es la visión general, sin detalle de código.
+
+### Tecnologías
+
+| Capa | Elección |
+|---|---|
+| Aplicación | Next.js 16, React 19 y TypeScript, como monolito modular |
+| Datos | PostgreSQL en Supabase (base de datos, autenticación y almacenamiento de archivos) con Drizzle ORM |
+| Interfaz | Tailwind CSS 4 sobre un único archivo de sistema de diseño, y next-intl para cuatro idiomas |
+| Mapas | Google Maps para el mapa de loteamientos, Leaflet para el mapa público |
+| Validación | Zod |
+| Calidad | Vitest con un PostgreSQL en memoria (PGlite), dependency-cruiser y GitHub Actions |
+| Hosting | Railway es el destino elegido, todavía sin desplegar |
+
+### Arquitectura
+
+```mermaid
+flowchart LR
+  accTitle: Arquitectura de Pontia
+  accDescr: Visitantes y equipos de las organizaciones llegan a una sola aplicación Next.js organizada en módulos. La aplicación habla con Supabase, donde Postgres aplica seguridad por fila para que cada organización vea solo sus datos.
+  V[Visitantes] --> APP
+  T[Equipos de organizaciones] --> APP
+  S[Admin de plataforma] --> APP
+  subgraph APP[Aplicación Next.js: monolito modular]
+    P[Presentación] --> U[Casos de uso]
+    U --> D[Dominio puro]
+    U --> I[Infraestructura]
+  end
+  I --> DB[(Supabase Postgres con seguridad por fila)]
+```
+
+En texto: tres tipos de usuarios llegan a una única aplicación Next.js. Adentro, la presentación llama a casos de uso, los casos de uso se apoyan en un dominio puro y la infraestructura es la única capa que toca la base de datos. La base de datos garantiza por sí misma el aislamiento entre organizaciones.
+
+### Decisiones técnicas
+
+| Decisión | Por qué |
+|---|---|
+| **Monolito modular, con límites vigilados por una herramienta** | Una sola unidad de despliegue es simple de operar, y una regla de dependencias rompe la compilación si un módulo invade a otro o si el dominio importa un framework |
+| **Aislamiento entre organizaciones en dos capas independientes** | El servidor filtra por organización y la base de datos aplica seguridad por fila. Si una capa falla, la otra sigue protegiendo los datos |
+| **Los visitantes anónimos nunca leen tablas** | El marketplace público llama a funciones de la base de datos que devuelven datos ya filtrados |
+| **Todo lo configurable es dato** | Catálogos, roles, módulos y niveles de ficha los edita el administrador de la plataforma sin publicar una versión |
+| **Dinero en unidades menores enteras, con cinco monedas** | Evita errores de redondeo en cuotas y moras |
+| **Auditoría de solo agregar y ediciones versionadas** | Cada cambio relevante registra a su autor, y dos personas que editan el mismo registro no se pisan |
+
+### Calidad
+
+Más de 1.100 pruebas automatizadas cubren reglas de base de datos, servicios, seguridad, arquitectura, traducciones y sistema de diseño. Un solo comando (`verify`) ejecuta lint, tipos, reglas de arquitectura, pruebas y verificación de migraciones antes de integrar cualquier cambio.
+
+## 10. Decisiones clave
 
 - **Aislamiento entre organizaciones en dos capas.** Los datos de una organización nunca se ven desde otra: la regla se impone en el servidor y otra vez en la base de datos, con seguridad a nivel de fila.
 - **Todo configurable por datos.** Tipos de propiedad, características, estados, roles, módulos y niveles de ficha los edita el administrador sin tocar código. Los niveles se aplican en la base de datos, de modo que un cliente manipulado no puede saltárselos.
@@ -234,7 +285,7 @@ Las pantallas con sesión las verifiqué con datos de ejemplo montados con las m
 - **Un solo sistema de diseño**, en un único archivo, con una prueba automática que impide estilos sueltos.
 - **Dirección pública simple:** una por organización, con historial de cambios y redirección permanente.
 
-## 10. Estado actual y lo que viene
+## 11. Estado actual y lo que viene
 
 **Construido:** los cimientos, el marketplace, la gestión de propiedades, buena parte de alquileres y loteamientos, equipo, roles y auditoría.
 
@@ -244,7 +295,7 @@ Las pantallas con sesión las verifiqué con datos de ejemplo montados con las m
 
 Es un producto en desarrollo: todavía no tiene usuarios reales ni un entorno de producción, y prefiero decirlo con claridad.
 
-## 11. Qué haría distinto
+## 12. Qué haría distinto
 
 - **Verificar cada pantalla con una cuenta real antes de seguir sumando módulos.** Fui rápido en construir y más lento en mirar el uso verdadero; la auditoría me lo mostró.
 - **Llevar la primera organización a un entorno de pruebas separado en una etapa más temprana.** Tener producción y desarrollo en una sola base hizo más riesgosas las migraciones.

@@ -7,7 +7,7 @@
 <h3 align="center">Fewer spreadsheets, more closed deals.</h3>
 
 <p align="center">
-  Product case study: a real estate platform that brings business management and a public storefront into one product.
+  Product, design and engineering case study: a real estate platform that brings business management and a public storefront into one product.
 </p>
 
 ![Pontia public home page](assets/portada.webp)
@@ -45,9 +45,10 @@ This document explains how I thought through the product, what I decided and why
 6. [Brand](#6-brand)
 7. [Design system](#7-design-system)
 8. [UI/UX audit and panel redesign](#8-uiux-audit-and-panel-redesign)
-9. [Key decisions](#9-key-decisions)
-10. [Current status and what comes next](#10-current-status-and-what-comes-next)
-11. [What I would do differently](#11-what-i-would-do-differently)
+9. [Technical overview](#9-technical-overview)
+10. [Key decisions](#10-key-decisions)
+11. [Current status and what comes next](#11-current-status-and-what-comes-next)
+12. [What I would do differently](#12-what-i-would-do-differently)
 
 ---
 
@@ -223,7 +224,57 @@ I verified the signed-in screens with sample data built with the same real class
 
 ![Organization panel](assets/panel.webp)
 
-## 9. Key decisions
+## 9. Technical overview
+
+I designed and built the whole system, so the technical choices follow the product rules rather than the other way around. This is the overview, without code-level detail.
+
+### Stack
+
+| Layer | Choice |
+|---|---|
+| App | Next.js 16, React 19 and TypeScript, as a modular monolith |
+| Data | PostgreSQL on Supabase (database, authentication and file storage) with Drizzle ORM |
+| Interface | Tailwind CSS 4 on a single design-system file, and next-intl for four languages |
+| Maps | Google Maps for the land development map, Leaflet for the public map |
+| Validation | Zod |
+| Quality | Vitest with an in-memory PostgreSQL (PGlite), dependency-cruiser and GitHub Actions |
+| Hosting | Railway is the chosen target, not deployed yet |
+
+### Architecture
+
+```mermaid
+flowchart LR
+  accTitle: Pontia architecture
+  accDescr: Visitors and organization teams reach one Next.js application organized in modules. The application talks to Supabase, where Postgres enforces row-level security so each organization only sees its own data.
+  V[Visitors] --> APP
+  T[Organization teams] --> APP
+  S[Platform admin] --> APP
+  subgraph APP[Next.js application: modular monolith]
+    P[Presentation] --> U[Use cases]
+    U --> D[Pure domain]
+    U --> I[Infrastructure]
+  end
+  I --> DB[(Supabase Postgres with row-level security)]
+```
+
+In text: three kinds of users reach a single Next.js application. Inside it, presentation calls use cases, use cases rely on a pure domain, and infrastructure is the only layer that touches the database. The database enforces isolation between organizations on its own.
+
+### Technical decisions
+
+| Decision | Why |
+|---|---|
+| **Modular monolith, with its boundaries checked by a tool** | One deployable unit is simple to run, and a dependency rule fails the build if a module reaches into another or the domain imports a framework |
+| **Isolation between organizations in two independent layers** | The server filters by organization and the database enforces row-level security. If one layer fails, the other still protects the data |
+| **Anonymous visitors never read tables** | The public marketplace calls database functions that return data already filtered |
+| **Everything configurable is data** | Catalogs, roles, modules and listing tiers are edited by the platform admin without a release |
+| **Money in whole minor units, with five currencies** | Avoids rounding errors in installments and late fees |
+| **Append-only audit and versioned edits** | Every relevant change records its author, and two people editing the same record cannot overwrite each other |
+
+### Quality
+
+More than 1,100 automated tests cover database rules, services, security, architecture, translations and the design system. One command (`verify`) runs lint, types, architecture rules, tests and a migration check before anything is merged.
+
+## 10. Key decisions
 
 - **Isolation between organizations in two layers.** One organization's data is never visible from another: the rule is enforced on the server and again in the database, with row-level security.
 - **Everything configurable through data.** Property types, features, statuses, roles, modules and listing tiers are edited by the administrator without touching code. Tiers are enforced in the database, so a tampered client cannot bypass them.
@@ -234,7 +285,7 @@ I verified the signed-in screens with sample data built with the same real class
 - **A single design system**, in one file, with an automated test that prevents stray styles.
 - **Simple public address:** one per organization, with change history and a permanent redirect.
 
-## 10. Current status and what comes next
+## 11. Current status and what comes next
 
 **Built:** the foundations, the marketplace, property management, a good part of rentals and land developments, team, roles and audit.
 
@@ -244,7 +295,7 @@ I verified the signed-in screens with sample data built with the same real class
 
 It is a product in development: it does not yet have real users or a production environment, and I prefer to say so plainly.
 
-## 11. What I would do differently
+## 12. What I would do differently
 
 - **Verify every screen with a real account before adding more modules.** I was fast at building and slower at looking at real use; the audit showed me that.
 - **Move the first organization to a separate test environment earlier.** Having production and development in a single database made migrations riskier.
