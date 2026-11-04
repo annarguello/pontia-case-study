@@ -15,7 +15,7 @@
 | | |
 |---|---|
 | **Rol** | Fundadora y responsable de producto: estrategia, alcance, reglas de negocio, marca, sistema de diseño, UX/UI y desarrollo |
-| **Plazo** | 2026 – presente |
+| **Plazo** | 2026 hasta hoy |
 | **Estado** | En desarrollo. Todavía sin usuarios reales ni lanzamiento (lo digo a propósito) |
 | **Mercado** | Paraguay y la región |
 | **Plataforma** | Web responsive (escritorio y móvil) |

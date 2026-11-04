@@ -15,7 +15,7 @@
 | | |
 |---|---|
 | **Role** | Founder and product lead: strategy, scope, business rules, brand, design system, UX/UI and development |
-| **Timeline** | 2026 – present |
+| **Timeline** | 2026 to present |
 | **Status** | In development. No real users and not launched yet (on purpose, I say so openly) |
 | **Market** | Paraguay and the region |
 | **Platform** | Responsive web (desktop and mobile) |
