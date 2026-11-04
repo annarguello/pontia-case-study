@@ -1,256 +1,258 @@
+<p align="right"><b>English</b> · <a href="README.es.md">Español</a></p>
+
 <p align="center">
   <img src="assets/marca-horizontal.webp" alt="Pontia" width="360">
 </p>
 
-<h3 align="center">Menos planillas, más negocios cerrados.</h3>
+<h3 align="center">Fewer spreadsheets, more closed deals.</h3>
 
 <p align="center">
-  Caso de estudio de producto: una plataforma inmobiliaria que une la gestión del negocio con una vitrina pública propia.
+  Product case study: a real estate platform that brings business management and a public storefront into one product.
 </p>
 
-![Portada pública de Pontia](assets/portada.webp)
+![Pontia public home page](assets/portada.webp)
 
 | | |
 |---|---|
-| **Rol** | Fundadora y responsable de producto: estrategia, alcance, reglas de negocio, marca, sistema de diseño, UX/UI y desarrollo |
-| **Plazo** | 2026 – presente |
-| **Estado** | En desarrollo. Todavía sin usuarios reales ni lanzamiento (lo digo a propósito) |
-| **Mercado** | Paraguay y la región |
-| **Plataforma** | Web responsive (escritorio y móvil) |
-| **Idiomas** | Español, inglés, alemán y portugués |
-| **Monedas** | Guaraníes, dólares, euros, reales y pesos argentinos |
-| **Proyecto en línea** | _próximamente_ |
+| **Role** | Founder and product lead: strategy, scope, business rules, brand, design system, UX/UI and development |
+| **Timeline** | 2026 – present |
+| **Status** | In development. No real users and not launched yet (on purpose, I say so openly) |
+| **Market** | Paraguay and the region |
+| **Platform** | Responsive web (desktop and mobile) |
+| **Languages** | Spanish, English, German and Portuguese |
+| **Currencies** | Paraguayan guaraní, US dollar, euro, Brazilian real and Argentine peso |
+| **Live project** | _coming soon_ |
 
 ---
 
-## Resumen
+## Summary
 
-En Paraguay, una inmobiliaria trabaja con una planilla para las propiedades, otra para los alquileres, un portal donde publicar y un grupo de WhatsApp para coordinar visitas. El inventario, la gestión y la vidriera pública no son lo mismo, y cada pieza se desactualiza por separado.
+In Paraguay, a real estate agency typically works with one spreadsheet for properties, another for rentals, a portal to publish on, and a WhatsApp group to arrange viewings. Inventory, management and the public storefront are not the same thing, and each piece goes out of date on its own.
 
-**Pontia** junta las tres cosas en un solo producto: un software de gestión para inmobiliarias, desarrolladoras, loteadoras, administradoras y agentes; un marketplace público con página propia por organización; y, más adelante, un portal para inquilinos, propietarios y compradores.
+**Pontia** puts the three together in one product: management software for agencies, developers, land developers, property managers and agents; a public marketplace with a page for each organization; and, later on, a portal for tenants, owners and buyers.
 
-Este documento cuenta cómo pensé el producto, qué decidí y por qué, cómo diseñé el sistema visual y qué cambiaría.
+This document explains how I thought through the product, what I decided and why, how I designed the visual system, and what I would change.
 
-![Una plataforma, tres espacios: marketplace, gestión y portal del cliente](assets/tres-espacios.webp)
+![One platform, three spaces: marketplace, management and client portal](assets/tres-espacios.webp)
 
-## Contenido
+## Contents
 
-1. [El problema](#1-el-problema)
-2. [La propuesta](#2-la-propuesta)
-3. [Para quién: seis perfiles](#3-para-quién-seis-perfiles)
-4. [Cómo trabajé](#4-cómo-trabajé)
-5. [Qué hay adentro](#5-qué-hay-adentro)
-6. [Marca](#6-marca)
-7. [Sistema de diseño](#7-sistema-de-diseño)
-8. [Auditoría de UI/UX y rediseño del panel](#8-auditoría-de-uiux-y-rediseño-del-panel)
-9. [Decisiones clave](#9-decisiones-clave)
-10. [Estado actual y lo que viene](#10-estado-actual-y-lo-que-viene)
-11. [Qué haría distinto](#11-qué-haría-distinto)
+1. [The problem](#1-the-problem)
+2. [The proposal](#2-the-proposal)
+3. [Who it is for: six profiles](#3-who-it-is-for-six-profiles)
+4. [How I worked](#4-how-i-worked)
+5. [What is inside](#5-what-is-inside)
+6. [Brand](#6-brand)
+7. [Design system](#7-design-system)
+8. [UI/UX audit and panel redesign](#8-uiux-audit-and-panel-redesign)
+9. [Key decisions](#9-key-decisions)
+10. [Current status and what comes next](#10-current-status-and-what-comes-next)
+11. [What I would do differently](#11-what-i-would-do-differently)
 
 ---
 
-## 1. El problema
+## 1. The problem
 
-Las inmobiliarias, las desarrolladoras y los agentes independientes no tienen un lugar donde **su inventario, su gestión y su vidriera pública sean lo mismo**. Lo que pasa hoy:
+Agencies, developers and independent agents do not have a place where **their inventory, their management and their public storefront are the same thing**. What happens today:
 
-- **Información repartida.** Propiedades en una planilla, alquileres en otra, cuotas de loteamientos en una tercera.
-- **Publicar es otro trabajo.** Lo que se carga para gestionar hay que volver a cargarlo en un portal para mostrarlo.
-- **La coordinación vive en el chat.** Las visitas se arreglan por WhatsApp, sin registro de quién consultó qué.
-- **Cobranza manual.** Cuotas, mora y vencimientos se calculan a mano, y un error de cuenta es un problema con el cliente.
+- **Scattered information.** Properties in one spreadsheet, rentals in another, land development installments in a third.
+- **Publishing is extra work.** What is entered to manage has to be entered again on a portal to be shown.
+- **Coordination lives in chat.** Viewings are arranged over WhatsApp, with no record of who asked about what.
+- **Manual collections.** Installments, late fees and due dates are calculated by hand, and a miscalculation becomes a problem with the client.
 
-## 2. La propuesta
+## 2. The proposal
 
-Tres espacios sobre los mismos datos:
+Three spaces on top of the same data:
 
-| Espacio | Para quién | Qué resuelve |
+| Space | For whom | What it solves |
 |---|---|---|
-| **Marketplace** | Quien busca casa, departamento, terreno o lote | Buscador con filtros, fichas con fotos y mapa, página propia de cada organización y pedido de visita con aviso por WhatsApp |
-| **Gestión** | El equipo de la organización | Propiedades, loteamientos, alquileres, clientes, cuotas, equipo y permisos en un solo panel |
-| **Portal del cliente** _(pendiente)_ | Inquilinos, propietarios y compradores | Consultar sus operaciones, cuotas y documentos |
+| **Marketplace** | People looking for a house, apartment, plot or lot | Filtered search, listings with photos and a map, each organization's own page, and viewing requests with a WhatsApp notice |
+| **Management** | The organization's team | Properties, land developments, rentals, clients, installments, team and permissions in a single panel |
+| **Client portal** _(pending)_ | Tenants, owners and buyers | Checking their transactions, installments and documents |
 
-Lo que se carga una vez para gestionar es lo que se publica: no hay que duplicar nada.
+What is entered once to manage is what gets published: nothing has to be duplicated.
 
-**Alcance deliberado.** Pontia no es un CRM ni un constructor de sitios web. Cada vez que apareció una función que lo empujaba hacia ahí, la dejé registrada como decisión abierta en lugar de sumarla.
+**Deliberate scope.** Pontia is not a CRM or a website builder. Every time a feature appeared that pushed it that way, I recorded it as an open decision instead of adding it.
 
-![Buscador del marketplace público](assets/buscador.webp)
+![Public marketplace search](assets/buscador.webp)
 
-## 3. Para quién: seis perfiles
+## 3. Who it is for: six profiles
 
-| Perfil | Qué necesita | Qué puede hacer |
+| Profile | What they need | What they can do |
 |---|---|---|
-| **Administrador de la plataforma** | Ver y ordenar todo el producto | Consola propia: organizaciones, usuarios, niveles de ficha, catálogos, auditoría |
-| **Administrador de la organización** | Controlar su negocio y lo que ve el público | Todo dentro de su organización: equipo, roles, datos públicos, auditoría |
-| **Usuario administrativo** | El día a día de las propiedades | Cargar, editar, publicar, importar y subir fotos; no toca equipo ni datos de la organización |
-| **Agente asociado o independiente** | Atender consultas de cualquier cliente | Ve el catálogo completo, crea borradores y edita y publica solo lo suyo |
-| **Cliente** _(pendiente)_ | Saber en qué está su operación | Portal propio, fuera de los roles de la organización |
-| **Visitante** | Encontrar una propiedad y consultar | Buscar, ver fichas y pedir una visita sin crear cuenta |
+| **Platform administrator** | To see and organize the whole product | Own console: organizations, users, listing tiers, catalogs, audit |
+| **Organization administrator** | To control their business and what the public sees | Everything inside their organization: team, roles, public data, audit |
+| **Administrative user** | The day-to-day of properties | Create, edit, publish, import and upload photos; does not touch the team or organization data |
+| **Associate or independent agent** | To handle inquiries about any client | Sees the full catalog, creates drafts, and edits and publishes only their own |
+| **Client** _(pending)_ | To know where their transaction stands | Own portal, separate from the organization's roles |
+| **Visitor** | To find a property and make an inquiry | Search, view listings and request a viewing without creating an account |
 
-Los permisos son **datos, no código**: cada permiso corresponde a una función real y cada organización recibe una copia editable de los roles. Cambiar el rol de alguien no requiere tocar nada técnico.
+Permissions are **data, not code**: each permission matches a real function, and each organization receives an editable copy of the roles. Changing someone's role does not require touching anything technical.
 
-Un ejemplo de decisión que tomé con opciones sobre la mesa: _¿qué ve y qué edita un agente?_ Evalué que viera solo lo suyo o todo el catálogo. Elegí que **vea todo** (para atender consultas de cualquier cliente) pero **edite y publique solo lo suyo**, lo que me llevó a un permiso propio (`property.update_own`) y a un selector de responsable en cada propiedad.
+An example of a decision I made with options on the table: _what can an agent see and edit?_ I weighed letting them see only their own properties against the whole catalog. I chose that they **see everything** (to answer inquiries about any client) but **edit and publish only their own**, which led to a dedicated permission (`property.update_own`) and an owner selector on each property.
 
-## 4. Cómo trabajé
+## 4. How I worked
 
-El proyecto lo llevé como producto, no como un conjunto de pantallas:
+I ran the project as a product, not as a set of screens:
 
-1. **Especificación primero.** Una especificación del producto como fuente de verdad: alcance, módulos, perfiles, reglas de negocio y requisitos.
-2. **Benchmark.** Análisis de competidores de la región para ubicar qué resuelve cada uno y dónde quedan huecos.
-3. **Las dudas no se inventan.** Cada pregunta de negocio sin respuesta quedó registrada como **decisión abierta** (con un código, opciones y una recomendación) en lugar de resolverse por suposición. Hay decisiones cerradas, como los permisos por perfil, y otras que siguen abiertas, como los planes comerciales.
-4. **Cada tema nuevo, en el mismo ciclo.** Diseño con preguntas de a una → documento de diseño → plan de tareas → ejecución con pruebas primero.
-5. **Revisión crítica del diseño.** Una auditoría de UI/UX sobre mi propio trabajo (sección 8), con diagnóstico, fases y decisiones que se aprueban antes de ejecutar.
-6. **Documentación como entregable.** Estado del producto, decisiones, sistema de diseño y traspasos entre etapas siempre actualizados, para que cualquier persona pueda retomar el proyecto sin leer una conversación.
+1. **Specification first.** A product specification as the source of truth: scope, modules, profiles, business rules and requirements.
+2. **Benchmark.** Analysis of competitors in the region to see what each one solves and where the gaps are.
+3. **Unknowns are not invented.** Every unanswered business question was recorded as an **open decision** (with a code, options and a recommendation) instead of being settled by assumption. Some decisions are closed, such as permissions by profile, and others remain open, such as commercial plans.
+4. **Every new topic goes through the same cycle.** Design through one-at-a-time questions → design document → task plan → execution, tests first.
+5. **Critical review of the design.** A UI/UX audit of my own work (section 8), with a diagnosis, phases and decisions that are approved before execution.
+6. **Documentation as a deliverable.** Product status, decisions, design system and handoffs between stages kept up to date, so anyone can pick the project up without reading a conversation.
 
-## 5. Qué hay adentro
+## 5. What is inside
 
-Nueve módulos que el administrador de la plataforma activa por organización:
+Nine modules that the platform administrator turns on per organization:
 
-- **Propiedades.** Alta y edición, estados, publicación, fotos, mapa y carga masiva por CSV, con niveles de ficha gratuita, intermedia y premium.
-- **Marketplace.** Ficha pública, buscador con filtros, página de cada organización y solicitud de visita con aviso por WhatsApp.
-- **Alquileres.** Contratos mensuales, semanales o diarios, cuotas, pagos, mora configurable, depósito y registro de gastos y arreglos por propiedad.
-- **Loteamientos.** Lotes dibujados sobre un mapa satelital, reservas, ventas y cuotas con mora por día de atraso.
-- **Clientes, equipo, roles y auditoría.**
-- **Agenda de visitas, portal del cliente, finanzas, proyectos y documentos,** en distintas etapas de diseño.
+- **Properties.** Create and edit, statuses, publishing, photos, map and bulk CSV upload, with free, intermediate and premium listing tiers.
+- **Marketplace.** Public listing, filtered search, each organization's page and viewing requests with a WhatsApp notice.
+- **Rentals.** Monthly, weekly or daily contracts, installments, payments, configurable late fees, deposit and expense tracking per property.
+- **Land developments.** Lots drawn on a satellite map, reservations, sales and installments with late fees per day overdue.
+- **Clients, team, roles and audit.**
+- **Viewing schedule, client portal, finance, projects and documents,** at different stages of design.
 
-### Pantallas
+### Screens
 
-![Acceso a la plataforma](assets/acceso.webp)
+![Platform sign-in](assets/acceso.webp)
 
-![Registro de una cuenta nueva](assets/registro.webp)
+![New account sign-up](assets/registro.webp)
 
-![Panel de una organización: propiedades, clientes, loteamientos y alquileres](assets/panel.webp)
+![Organization panel: properties, clients, land developments and rentals](assets/panel.webp)
 
-![Consola de la plataforma: propiedades de todas las organizaciones, con filtros y nivel de ficha](assets/propiedades-plataforma.webp)
+![Platform console: properties from all organizations, with filters and listing tier](assets/propiedades-plataforma.webp)
 
-![Consola de la plataforma: organizaciones](assets/organizaciones.webp)
+![Platform console: organizations](assets/organizaciones.webp)
 
-## 6. Marca
+## 6. Brand
 
-Armé la marca junto con el producto: un nombre corto, un isotipo que se lee en tamaños chicos y un logotipo en grotesca ancha que se vuelve el protagonista de las pantallas públicas.
+I built the brand together with the product: a short name, a symbol that reads at small sizes, and a wide-grotesque logotype that becomes the protagonist of the public screens.
 
 <p>
-  <img src="assets/marca-logo.webp" alt="Logotipo con isotipo" width="230">
-  <img src="assets/marca-isotipo-azul.webp" alt="Isotipo sobre azul" width="230">
-  <img src="assets/marca-isotipo-oscuro.webp" alt="Isotipo sobre fondo oscuro" width="230">
+  <img src="assets/marca-logo.webp" alt="Logotype with symbol" width="230">
+  <img src="assets/marca-isotipo-azul.webp" alt="Symbol on blue" width="230">
+  <img src="assets/marca-isotipo-oscuro.webp" alt="Symbol on dark background" width="230">
 </p>
 
-![Logotipo calado sobre degradado: la imagen clave de la marca](assets/marca-wordmark.webp)
+![Outlined logotype on a gradient: the brand's key visual](assets/marca-wordmark.webp)
 
-La imagen clave, el nombre en contorno sobre un degradado azul, es el único lugar donde la interfaz usa degradado. En el resto, la marca se apoya en el color plano, la tipografía y el aire.
+The key visual, the name in outline over a blue gradient, is the only place where the interface uses a gradient. Everywhere else the brand relies on flat color, typography and white space.
 
-## 7. Sistema de diseño
+## 7. Design system
 
-**Un solo archivo controla el aspecto de todo el sitio.** Cambiar un color, una tipografía, un radio o el aspecto de los botones allí cambia todas las pantallas a la vez.
+**A single file controls the look of the entire site.** Changing a color, a typeface, a radius or the look of buttons there changes every screen at once.
 
-### Dirección visual
+### Visual direction
 
-Sobria, editorial y limpia. Blanco cálido de marca como lienzo, tinta azul noche para el texto y el azul real **solo como acento** (acción principal, enlaces, foco). Líneas finas en lugar de sombras, radios pequeños, mucho aire y titulares en grotesca ancha como el logotipo. Sin degradados salvo la imagen clave, sin emojis ni efectos decorativos.
+Sober, editorial and clean. A warm brand white as the canvas, midnight-blue ink for text, and the true blue **only as an accent** (primary action, links, focus). Thin lines instead of shadows, small radii, plenty of air, and headlines in a wide grotesque like the logotype. No gradients except the key visual, no emojis, no decorative effects.
 
 ### Tokens
 
-| Token | Valor | Uso |
+| Token | Value | Use |
 |---|---|---|
-| Azul de marca | `#2339b7` | Acción principal, enlaces, foco |
-| Tinta | `#151933` | Texto y fondos oscuros |
-| Lienzo | `#efede9` | Fondo de página (blanco cálido de marca) |
-| Papel | `#f9f8f6` | Tarjetas y campos |
-| Texto secundario | `#4a4f66` · `#5f647c` | Cuerpo secundario y leyendas (contraste AA) |
-| Líneas | `#dcd9d2` · `#c3bfb5` | Líneas finas y bordes de controles |
-| Estados | `#1c7448` · `#b0261b` · `#8a5a00` | Éxito, error, advertencia |
-| Titulares | Archivo, eje de ancho 125 % | Pantallas públicas |
-| Texto | Hanken Grotesk | Todo lo demás |
-| Radios | 6 px controles · 10 px tarjetas | |
-| Objetivo táctil | 44 px | Alto mínimo de controles |
+| Brand blue | `#2339b7` | Primary action, links, focus |
+| Ink | `#151933` | Text and dark backgrounds |
+| Canvas | `#efede9` | Page background (warm brand white) |
+| Paper | `#f9f8f6` | Cards and fields |
+| Secondary text | `#4a4f66` · `#5f647c` | Secondary body text and captions (AA contrast) |
+| Lines | `#dcd9d2` · `#c3bfb5` | Thin lines and control borders |
+| States | `#1c7448` · `#b0261b` · `#8a5a00` | Success, error, warning |
+| Headlines | Archivo, 125 % width axis | Public screens |
+| Text | Hanken Grotesk | Everything else |
+| Radii | 6 px controls · 10 px cards | |
+| Touch target | 44 px | Minimum control height |
 
-### Dos temas, un solo sistema
+### Two themes, one system
 
-La misma interfaz no sirve para vender y para trabajar. Resolví con **dos temas** que se aplican una sola vez, en el contenedor, sin tocar las pantallas:
+The same interface does not work for selling and for working. I solved it with **two themes** applied once, on the container, without touching the screens:
 
-| | Público | Panel |
+| | Public | Panel |
 |---|---|---|
-| Uso | Inicio, acceso, buscador, ficha, página de organización | Consola de la plataforma y panel de la organización |
-| Lienzo | Blanco cálido de marca | Neutro frío `#f5f6f8` con superficies blancas |
-| Titulares | Grotesca ancha | Hanken Grotesk, tamaño de producto |
-| Controles | 44 px | 36 px en escritorio, 44 px con puntero táctil |
-| Objetivo | Que la marca se note | Velocidad y densidad |
+| Use | Home, sign-in, search, listing, organization page | Platform console and organization panel |
+| Canvas | Warm brand white | Cool neutral `#f5f6f8` with white surfaces |
+| Headlines | Wide grotesque | Hanken Grotesk, product scale |
+| Controls | 44 px | 36 px on desktop, 44 px with a touch pointer |
+| Goal | Let the brand show | Speed and density |
 
-### Reglas que se hacen cumplir con una prueba automática
+### Rules enforced by an automated test
 
-El diseño no depende de la memoria de quien lo toca. Una prueba falla si una pantalla:
+Design does not depend on the memory of whoever touches it. A test fails if a screen:
 
-- usa colores hexadecimales, la paleta por defecto de Tailwind, colores arbitrarios, sombras, radios o estilos en línea;
-- usa una clase que no existe en el sistema de diseño.
+- uses hexadecimal colors, the default Tailwind palette, arbitrary colors, shadows, radii or inline styles;
+- uses a class that does not exist in the design system.
 
-El layout (`flex`, `grid`, espaciado) sí va en las pantallas. Un componente nuevo se agrega **al sistema**, no a la pantalla. La única excepción son los colores propios de cada organización en su página pública, que se validan al leerlos: si no alcanzan contraste AA con su texto, se usa el de Pontia.
+Layout (`flex`, `grid`, spacing) can live in the screens. A new component is added **to the system**, not to the screen. The only exception is each organization's own colors on its public page, which are validated when read: if they do not reach AA contrast with their text, Pontia's are used instead.
 
-### Accesibilidad
+### Accessibility
 
-- Contraste AA en texto y estados.
-- Objetivos táctiles de 44 px y foco visible de 2 px.
-- Se respeta `prefers-reduced-motion`.
-- Páginas públicas renderizadas en el servidor, para SEO y rendimiento.
+- AA contrast for text and states.
+- 44 px touch targets and a visible 2 px focus ring.
+- `prefers-reduced-motion` is respected.
+- Public pages rendered on the server, for SEO and performance.
 
-## 8. Auditoría de UI/UX y rediseño del panel
+## 8. UI/UX audit and panel redesign
 
-A mitad del proyecto revisé críticamente mi propio trabajo: el sistema de diseño completo, las pantallas con sesión y las públicas, en escritorio (1440 px) y en móvil (375 px).
+Midway through the project I critically reviewed my own work: the whole design system, the signed-in screens and the public ones, on desktop (1440 px) and mobile (375 px).
 
-**Diagnóstico en una frase:** la interfaz tenía identidad de marca (editorial, cálida, titulares anchos) pero la usaba igual **dentro del panel de trabajo, donde el usuario necesita velocidad y densidad**. Se veía más revista que software.
+**Diagnosis in one sentence:** the interface had brand identity (editorial, warm, wide headlines) but used it the same way **inside the work panel, where users need speed and density**. It looked more like a magazine than software.
 
-Ante la pregunta _"¿usaría esto en el dashboard?"_, mi respuesta fue **no**: el titular ancho y pesado funciona donde se vende la marca, no donde se trabaja.
+Asked _"would you use this in the dashboard?"_, my answer was **no**: the wide, heavy headline works where the brand is sold, not where people work.
 
-### Hallazgos de la primera fase
+### First-phase findings
 
-| # | Problema | Qué hice |
+| # | Problem | What I did |
 |---|---|---|
-| 1 | **Móvil roto:** el menú lateral se apilaba entero sobre el contenido y los titulares se cortaban | Menú como cajón lateral (botón en la barra superior, velo, cierra con Esc) y titulares que no desbordan |
-| 2 | **Escala tipográfica de editorial dentro de la app** | Dos escalas: marca (pública) y producto (panel: títulos de 24 px, cifras de 28 px, texto de 14 px) |
-| 3 | **Densidad demasiado holgada** | Controles de 36 px en escritorio y 44 px solo con puntero táctil |
-| 4 | **Barra superior casi vacía** | Búsqueda de propiedades y menú de cuenta con avatar, idioma y cerrar sesión |
-| 5 | **Listas como pilas de tarjetas, inconsistentes** | Un solo patrón: tabla de datos con acciones por fila |
-| 6 | **"Atajos" repetía el menú lateral** | Se eliminó del resumen |
-| 7 | **Sin estados de carga ni de error** | Esqueletos de carga por sección y pantalla de error propia con reintento |
+| 1 | **Broken mobile:** the side menu stacked entirely above the content and headlines were cut off | Menu as a side drawer (button in the top bar, scrim, closes with Esc) and headlines that no longer overflow |
+| 2 | **Editorial type scale inside the app** | Two scales: brand (public) and product (panel: 24 px titles, 28 px figures, 14 px text) |
+| 3 | **Density too loose** | 36 px controls on desktop and 44 px only with a touch pointer |
+| 4 | **Nearly empty top bar** | Property search and an account menu with avatar, language and sign out |
+| 5 | **Lists as piles of cards, inconsistent** | One pattern: data table with per-row actions |
+| 6 | **"Shortcuts" repeated the side menu** | Removed from the overview |
+| 7 | **No loading or error states** | Loading skeletons per section and a dedicated error screen with retry |
 
-Más adelante, en configuración: los niveles de ficha pasaron de una tarjeta con formulario por nivel a una **tabla comparativa**, y la edición se hace en un cuadro de diálogo nativo (foco atrapado, Esc cierra).
+Later, in settings: listing tiers went from one card with a form per tier to a **comparison table**, and editing happens in a native dialog (focus trapped, Esc closes).
 
-### Decisiones que dejé al criterio de quien aprueba
+### Decisions I left to whoever approves
 
-Color del panel (neutro frío o cálido de marca), librería de iconos, alcance de la búsqueda global y referencia visual. Las presenté como preguntas con recomendación, no como hechos.
+Panel color (cool neutral or warm brand), icon library, scope of the global search and visual reference. I presented them as questions with a recommendation, not as facts.
 
-### Lo que queda por revisar
+### What is still to review
 
-Las pantallas con sesión las verifiqué con datos de ejemplo montados con las mismas clases reales, **no con una cuenta de usuario real**. Es la primera cosa que quiero cerrar antes de seguir sumando módulos.
+I verified the signed-in screens with sample data built with the same real classes, **not with a real user account**. It is the first thing I want to close before adding more modules.
 
-![Panel de una organización](assets/panel.webp)
+![Organization panel](assets/panel.webp)
 
-## 9. Decisiones clave
+## 9. Key decisions
 
-- **Aislamiento entre organizaciones en dos capas.** Los datos de una organización nunca se ven desde otra: la regla se impone en el servidor y otra vez en la base de datos, con seguridad a nivel de fila.
-- **Todo configurable por datos.** Tipos de propiedad, características, estados, roles, módulos y niveles de ficha los edita el administrador sin tocar código. Los niveles se aplican en la base de datos, de modo que un cliente manipulado no puede saltárselos.
-- **Multimoneda y multilingüe desde el inicio.** El dinero se guarda siempre en enteros de la unidad menor, para que nunca haya errores de redondeo en cuotas y mora.
-- **Mora configurable.** Por día de atraso, definida por organización, por loteamiento o por venta, con período de gracia; se puede cobrar o perdonar aparte de la cuota.
-- **Lo que no está definido no se inventa.** Cada duda de negocio queda registrada como decisión abierta.
-- **Alcance deliberado.** No es un CRM ni un constructor de sitios web.
-- **Un solo sistema de diseño**, en un único archivo, con una prueba automática que impide estilos sueltos.
-- **Dirección pública simple:** una por organización, con historial de cambios y redirección permanente.
+- **Isolation between organizations in two layers.** One organization's data is never visible from another: the rule is enforced on the server and again in the database, with row-level security.
+- **Everything configurable through data.** Property types, features, statuses, roles, modules and listing tiers are edited by the administrator without touching code. Tiers are enforced in the database, so a tampered client cannot bypass them.
+- **Multi-currency and multilingual from the start.** Money is always stored as integers in the minor unit, so there are never rounding errors in installments and late fees.
+- **Configurable late fees.** Per day overdue, defined per organization, per land development or per sale, with a grace period; they can be collected or waived separately from the installment.
+- **What is not defined is not invented.** Every business doubt is recorded as an open decision.
+- **Deliberate scope.** It is not a CRM or a website builder.
+- **A single design system**, in one file, with an automated test that prevents stray styles.
+- **Simple public address:** one per organization, with change history and a permanent redirect.
 
-## 10. Estado actual y lo que viene
+## 10. Current status and what comes next
 
-**Construido:** los cimientos, el marketplace, la gestión de propiedades, buena parte de alquileres y loteamientos, equipo, roles y auditoría.
+**Built:** the foundations, the marketplace, property management, a good part of rentals and land developments, team, roles and audit.
 
-**En camino:** gastos y arreglos de alquileres (recién construido), tipos de propiedad con características propias, alquiler por día con horario para quintas y departamentos, y publicación en un entorno de producción.
+**On the way:** rental expenses and repairs (just built), property types with their own features, per-day rentals with start and end times for country houses and apartments, and publishing to a production environment.
 
-**Más adelante:** portal del cliente, firma digital de contratos, facturación electrónica, finanzas y proyectos con planes de pago para desarrolladoras.
+**Later:** client portal, digital contract signing, electronic invoicing, finance, and projects with payment plans for developers.
 
-Es un producto en desarrollo: todavía no tiene usuarios reales ni un entorno de producción, y prefiero decirlo con claridad.
+It is a product in development: it does not yet have real users or a production environment, and I prefer to say so plainly.
 
-## 11. Qué haría distinto
+## 11. What I would do differently
 
-- **Verificar cada pantalla con una cuenta real antes de seguir sumando módulos.** Fui rápido en construir y más lento en mirar el uso verdadero; la auditoría me lo mostró.
-- **Llevar la primera organización a un entorno de pruebas separado en una etapa más temprana.** Tener producción y desarrollo en una sola base hizo más riesgosas las migraciones.
+- **Verify every screen with a real account before adding more modules.** I was fast at building and slower at looking at real use; the audit showed me that.
+- **Move the first organization to a separate test environment earlier.** Having production and development in a single database made migrations riskier.
 
 ---
 
-## Código
+## Code
 
-El código del producto está en un repositorio privado. Este repositorio reúne la explicación del proyecto y las imágenes del producto.
+The product's code lives in a private repository. This repository gathers the project explanation and the product images.
 
-<sub>© Analia Arguello. Las imágenes y los textos de este repositorio son del proyecto Pontia y no están licenciados para reutilización.</sub>
+<sub>© Analia Arguello. The images and texts in this repository belong to the Pontia project and are not licensed for reuse.</sub>
